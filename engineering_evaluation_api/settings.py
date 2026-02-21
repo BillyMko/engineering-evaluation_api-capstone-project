@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'engineering_evaluation_api_db',
-        'USER': 'userbelieve',
-        'PASSWORD': 'mypassword0000',
+        'USER': 'believemukomberanwa',
+        'PASSWORD': 'mypassword1956',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -123,3 +123,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+AUTH_USER_MODEL = 'evaluation_app.CustomUser'
