@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
+from .models import Project
 
 User = get_user_model()
 
@@ -17,3 +18,14 @@ class NewUserRegistrationSerializer(serializers.ModelSerializer):
         newuser.set_password(validated_data['password'])
         newuser.save()
         return newuser
+
+
+
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Project
+        fields = ['id','title','description','status','created_by','created_at']
+        read_only_fields = ['id', 'created_at']
