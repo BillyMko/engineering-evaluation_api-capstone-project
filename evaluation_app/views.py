@@ -3,8 +3,8 @@ from rest_framework import generics
 from .serializers import NewUserRegistrationSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets
-from .models import Project, Submission
-from .serializers import ProjectSerializer, SubmissionSerializer
+from .models import Project, Submission, Evaluation
+from .serializers import ProjectSerializer, SubmissionSerializer, EvaluationSerializer
 
 
 User = get_user_model()
@@ -26,3 +26,11 @@ class SubmissionViewCRUD(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(student=self.request.user)
+
+class EvaluationViewCRUD(viewsets.ModelViewSet):
+    queryset = Evaluation.objects.all()
+    serializer_class = EvaluationSerializer
+
+    def get_queryset(self):
+        loggeduser = self.request.user
+        return Evaluation.objects.filter(submission__student=loggeduser)
