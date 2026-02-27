@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
-from .models import Project, Submission
+from .models import Project, Submission, Evaluation
 
 User = get_user_model()
 
@@ -42,3 +42,15 @@ class SubmissionSerializer(serializers.ModelSerializer):
             'submitted_at'
         ]
         read_only_fields = ['id', 'student', 'submitted_at']
+
+class EvaluationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evaluation
+        fields = [
+            'id',
+            'submission',
+            'solution_score',
+            'feedback',
+            'evaluated_at'
+        ]
+        read_only_fields = ['id', 'evaluated_at']
