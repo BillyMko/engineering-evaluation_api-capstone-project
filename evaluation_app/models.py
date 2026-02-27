@@ -40,3 +40,12 @@ class Submission(models.Model):
 
     def __str__(self):
         return f"{self.student} - {self.project.title}"
+
+class Evaluation(models.Model):
+    submission = models.OneToOneField(Submission, on_delete=models.CASCADE,related_name='evaluation')
+    solution_score = models.IntegerField()
+    feedback = models.TextField()
+    evaluated_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"This evaluation is for {self.submission}"
