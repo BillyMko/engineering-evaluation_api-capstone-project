@@ -1,12 +1,14 @@
 from django.urls import path, include
 from .views import NewUserRegistrationView
 from rest_framework.routers import DefaultRouter
-from .views import ProjectViewCRUD, SubmissionViewCRUD
+from .views import ProjectViewCRUD, SubmissionViewCRUD, EvaluationViewCRUD
 
 
 router = DefaultRouter()
 router.register(r'projects', ProjectViewCRUD, basename='comapanyprojects')
 router.register(r'submissions', SubmissionViewCRUD, basename='projectsubmissions')
+router.register(r'evaluations', EvaluationViewCRUD, basename='studentevaluations')
+
 
 
 urlpatterns = [
