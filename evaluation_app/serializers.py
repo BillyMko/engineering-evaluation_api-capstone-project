@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
-from .models import Project
+from .models import Project, Submission
 
 User = get_user_model()
 
@@ -29,3 +29,16 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = ['id','title','description','status','created_by','created_at']
         read_only_fields = ['id', 'created_at']
+
+
+class SubmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Submission
+        fields = [
+            'id',
+            'project',
+            'student',
+            'solution',
+            'submitted_at'
+        ]
+        read_only_fields = ['id', 'student', 'submitted_at']
