@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from .models import Project, Submission, Evaluation
 from .serializers import ProjectSerializer, SubmissionSerializer, EvaluationSerializer
-from .permissions import IsUserCompany,  IsProjectOwnerIfNotReadOnly
+from .permissions import IsUserCompany,  IsProjectOwnerIfNotReadOnly, IsStudentThenSubmit, IsSubmissionTheOwner, IsCompanyThenEvaluate, IsProjectOwnerThenEvaluate
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 User = get_user_model()
@@ -24,6 +24,7 @@ class ProjectViewCRUD(viewsets.ModelViewSet):
 class SubmissionViewCRUD(viewsets.ModelViewSet):
     queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
+    permission_classes = [IsStudentThenSubmit, IsSubmissionTheOwner, IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(student=self.request.user)
@@ -31,6 +32,7 @@ class SubmissionViewCRUD(viewsets.ModelViewSet):
 class EvaluationViewCRUD(viewsets.ModelViewSet):
     queryset = Evaluation.objects.all()
     serializer_class = EvaluationSerializer
+    permission_classes = [IsCompanyThenEvaluate, IsProjectOwnerThenEvaluate]
 
     def get_queryset(self):
         loggeduser = self.request.user
