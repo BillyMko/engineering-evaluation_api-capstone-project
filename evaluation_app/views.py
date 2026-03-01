@@ -29,11 +29,24 @@ class SubmissionViewCRUD(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(student=self.request.user)
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.role == "student":
+            return Submission.objects.filter(student=user)
+
 class EvaluationViewCRUD(viewsets.ModelViewSet):
     queryset = Evaluation.objects.all()
     serializer_class = EvaluationSerializer
     permission_classes = [IsCompanyThenEvaluate, IsProjectOwnerThenEvaluate]
 
     def get_queryset(self):
+
         loggeduser = self.request.user
-        return Evaluation.objects.filter(submission__student=loggeduser)
+
+        if loggeduser.role == "student":
+            return Evaluation.objects.filter(submission__student=loggeduser)
+        
+        elif loggeduser.role == "company":
+            return Evaluation.objects.filter(submission__project__created_by=loggeduser)
+        
+        return Evaluation.objects.none()
