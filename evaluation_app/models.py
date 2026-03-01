@@ -20,7 +20,7 @@ class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     status = models.CharField(max_length=20, choices=PROJECT_AVAILABILITY_CHOICES, default='Open')
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,limit_choices_to={'role': 'Company'},related_name='projects')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,limit_choices_to={'role': 'company'},related_name='projects')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
