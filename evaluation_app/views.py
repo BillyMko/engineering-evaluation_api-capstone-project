@@ -5,7 +5,8 @@ from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from .models import Project, Submission, Evaluation
 from .serializers import ProjectSerializer, SubmissionSerializer, EvaluationSerializer
-
+from .permissions import IsUserCompany,  IsProjectOwnerIfNotReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 User = get_user_model()
 
@@ -18,7 +19,7 @@ class NewUserRegistrationView(generics.CreateAPIView):
 class ProjectViewCRUD(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-
+    permission_classes = [ IsUserCompany, IsProjectOwnerIfNotReadOnly, IsAuthenticatedOrReadOnly]
 
 class SubmissionViewCRUD(viewsets.ModelViewSet):
     queryset = Submission.objects.all()
