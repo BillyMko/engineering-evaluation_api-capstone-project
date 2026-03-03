@@ -31,8 +31,9 @@ class SubmissionViewCRUD(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.role == "student":
-            return Submission.objects.filter(student=user)
+        if user.is_authenticated:
+            if user.role == "student":
+                return Submission.objects.filter(student=user)
 
 class EvaluationViewCRUD(viewsets.ModelViewSet):
     queryset = Evaluation.objects.all()
