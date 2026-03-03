@@ -39,5 +39,5 @@ class IsProjectOwnerThenEvaluate(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in ["GET", "HEAD", "OPTIONS"]:
             return True
-        return obj.submission.project.company == request.user
+        return obj.submission.project.created_by == request.user
 
