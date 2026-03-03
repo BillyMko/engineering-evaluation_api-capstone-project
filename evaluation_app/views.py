@@ -43,11 +43,11 @@ class EvaluationViewCRUD(viewsets.ModelViewSet):
     def get_queryset(self):
 
         loggeduser = self.request.user
-
-        if loggeduser.role == "student":
-            return Evaluation.objects.filter(submission__student=loggeduser)
+        if loggeduser.is_authenticated:
+            if loggeduser.role == "student":
+                return Evaluation.objects.filter(submission__student=loggeduser)
         
-        elif loggeduser.role == "company":
-            return Evaluation.objects.filter(submission__project__created_by=loggeduser)
+            elif loggeduser.role == "company":
+                return Evaluation.objects.filter(submission__project__created_by=loggeduser)
         
         return Evaluation.objects.none()
