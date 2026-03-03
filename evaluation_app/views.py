@@ -19,10 +19,20 @@ class NewUserRegistrationView(generics.CreateAPIView):
 class ProjectViewCRUD(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [ IsUserCompany, IsProjectOwnerIfNotReadOnly, IsAuthenticatedOrReadOnly]
+    permission_classes = [ IsUserCompany, IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+
+    def get_queryset(self):
+
+        loggeduser = self.request.user
+        if self.request.user.is_authenticated:
+            if loggeduser.role == 'student':
+                return Project.objects.all()
+        else:
+            return Project.objects.none()
+        return Project.objects.filter(created_by = loggeduser)
 
 class SubmissionViewCRUD(viewsets.ModelViewSet):
     queryset = Submission.objects.all()
