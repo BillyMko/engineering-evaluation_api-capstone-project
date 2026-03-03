@@ -21,6 +21,9 @@ class ProjectViewCRUD(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     permission_classes = [ IsUserCompany, IsProjectOwnerIfNotReadOnly, IsAuthenticatedOrReadOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 class SubmissionViewCRUD(viewsets.ModelViewSet):
     queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
