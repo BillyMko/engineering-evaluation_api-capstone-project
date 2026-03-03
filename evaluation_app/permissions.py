@@ -14,8 +14,9 @@ class IsProjectOwnerIfNotReadOnly(BasePermission):
     
 class IsStudentThenSubmit(BasePermission):
     def has_permission(self, request, view):
-        if request.user.role == "company":
-            return False
+        if request.user.is_authenticated:
+            if request.user.role == "company":
+                return False
         
         if request.method == "POST":
             return request.user.is_authenticated and request.user.role == "student"
