@@ -32,7 +32,7 @@ class Submission(models.Model):
     student = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        limit_choices_to={'role': 'Student'},
+        limit_choices_to={'role': 'student'},
         related_name='submission')
 
     solution = models.TextField()
