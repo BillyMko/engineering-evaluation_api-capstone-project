@@ -1,10 +1,10 @@
-Engineering Evaluation API
+## Engineering Evaluation API
 
 The Engineering Evaluation API is a backend system developed as part of the ALX Backend Engineering Capstone Project. The API provides a way to manage company engineering projects, student submissions, and project evaluations.
 
 The system allows companies to create engineering projects, students to submit their work, and companies to review and score those submissions.
 
-Features
+### Features
 
 User registration and authentication
 
@@ -16,7 +16,7 @@ Submission of project solutions
 
 Evaluation of student submissions
 
-Technologies Used
+### Technologies Used
 
 Python
 
@@ -26,52 +26,52 @@ Django REST Framework
 
 SQLite database
 
-API Endpoints
-Authentication
+### API Endpoints
+#### Authentication
 POST /api/register/
 POST /api/login/
 
-Projects
+#### Projects
 GET  /api/projects/
 POST /api/projects/
 PUT  /api/projects/{id}/
 DELETE /api/projects/{id}/
 
-Submissions
+#### Submissions
 GET  /api/submissions/
 POST /api/submissions/
 
-Evaluations
+#### Evaluations
 GET  /api/evaluations/
 POST /api/evaluations/
 
-Installation
+### Installation
 
 git clone https://github.com/yourusername/engineering-evaluation_api-capstone-project.git
 cd engineering-evaluation_api-capstone-project
 python -m venv venv
 source venv/bin/activate
 
-Install dependencies:
+### Install dependencies:
 
 pip install -r requirements.txt
 
-Apply migrations:
+### Apply migrations:
 
 python manage.py migrate
 
 
-Run the development server:
+### Run the development server:
 
 python manage.py runserver
 
-Deployment
+### Deployment
 
 The project is deployed using:
 
 PythonAnywhere
 
-Author
+## Author
 
 Believe Mukomberanwa
 
