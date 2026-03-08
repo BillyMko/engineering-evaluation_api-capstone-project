@@ -19,7 +19,7 @@ class NewUserRegistrationView(generics.CreateAPIView):
 class ProjectViewCRUD(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [ IsUserCompany, IsAuthenticatedOrReadOnly]
+    permission_classes = [IsUserCompany, IsProjectOwnerIfNotReadOnly, IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
